@@ -157,24 +157,19 @@
         lista = new List<Clientes>();
         cliente = new Clientes();
 
+        lista = clienteBLL.GetList(e => true);
+
         if (Criterio != null)
         {
             switch (Filtro)
             {
                 case "0": // Id
-
-
                     lista = clienteBLL.GetList(e => e.ClienteId == int.Parse(Criterio));
-
                     break;
 
                 case "1": // Nombre
-
-
                     lista = clienteBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()));
-
                     break;
-
             }
         }
         else

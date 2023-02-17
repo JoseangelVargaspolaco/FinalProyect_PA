@@ -16,7 +16,7 @@
                 <div class="oi oi-person"></div>
             </h4>
         </div>
-
+        
         <div class="card-body">
             <form>
                 <div class="input-group d-flex align-items-end">
@@ -139,6 +139,8 @@
     {
         suplidorList = new List<Suplidor>();
         suplidor = new Suplidor();
+
+        suplidorList = suplidorBLL.GetList(e => true);
 
         if (Criterio != null)
         {

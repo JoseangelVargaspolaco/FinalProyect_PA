@@ -120,7 +120,7 @@
 
 @code {
 
-#nullable disable // Para quitar el aviso de nulls
+    #nullable disable // Para quitar el aviso de nulls
     public DateOnly Fecha { get; set; }
 
     public List<Articulo> lista { get; set; } = new List<Articulo>();
@@ -145,9 +145,5 @@
     protected override void OnInitialized()
     {
         lista = articuloBLL.GetList(e => true);
-
-        totalPrecio += articulo.Precio;
-        totalCosto += articulo.Costo;
-        totalCantidad += articulo.Cantidad;
     }
 }

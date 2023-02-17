@@ -24,95 +24,51 @@
 
             <div class="card-body">
                 <div class="row">
-                    <form class="row gy-3">
+                    
+                    @*...................... Fecha ......................*@
 
-                        @*...................... Fecha ......................*@
-
-                        <div class="form-group col-3" style="margin: auto;">
-                            <label>Fecha</label>
-                            <InputDate @bind-Value="articulo.FechaCreacion" class="form-control" />
-                        </div>
-                        
-
-                        @*...................... Nombre ......................*@
-
-                        <div class="form-group col-3" style="margin: auto;">
-                            <label>Nombre</label>
-                            <InputText @bind-Value="articulo.Nombre" placeholder="Nombre articulo"
-                                class="form-control" />
-                            <ValidationMessage For="@(() => articulo.Nombre)" />
-                        </div>
-
-                        @*...................... Categoria ......................*@
-
-                        <div class="form-group col-4" style="margin: auto;">
-                            <label>Categoria <div class="oi oi-sort-ascending"></div></label>
-                            <InputSelect @bind-Value="articulo.CategoriaId" class="form-select text-14">
-                                <option value="0" disabled selected>Seleccione una categoria</option>
-                                @foreach (var item in CategoriaList)
-                                {
-                                    <option value="@item.CategoriaId">@item.Descripcion</option>
-                                }
-                            </InputSelect>
-                            <ValidationMessage For="@(() => articulo.CategoriaId)" />
-                        </div>
-
-                        @*...................... Cantidad ......................*@
-
-                        <div class="form-group col-3" style="margin: auto;">
-                            <label>Cantidad</label>
-                            <InputNumber @bind-Value="articulo.Cantidad" class="form-control" />
-                            <ValidationMessage For="@(() => articulo.Cantidad)" />
-                        </div>
-
-                        <div class="form-group col-3" style="margin: auto;">
-                        <label>Costo / Unidad</label>
-                        <InputNumber @bind-Value="articulo.Costo" class="form-control" />
-                        <ValidationMessage For="@(() => articulo.Costo)" />
+                    <div class="form-group col-3">
+                        <label>Fecha</label>
+                        <InputDate @bind-Value="articulo.FechaCreacion" class="form-control" />
                     </div>
 
-                    @*...................... Precio ......................*@
 
-                    <div class="form-group col-3" style="margin: auto;">
-                        <label>Precio</label>
-                        <InputNumber @bind-Value="articulo.Precio" class="form-control" />
-                        <ValidationMessage For="@(() => articulo.Precio)" />
+                    @*...................... Nombre ......................*@
+
+                    <div class="form-group col-3">
+                        <label>Nombre</label>
+                        <InputText @bind-Value="articulo.Nombre" placeholder="Nombre articulo"
+                            class="form-control" />
+                        <ValidationMessage For="@(() => articulo.Nombre)" />
                     </div>
 
-                    @*...................... ITBIS ......................*@
+                    @*...................... Categoria ......................*@
 
-                    <div class="form-group col-md-3" style="margin: auto;">
-                        <label>ITBIS</label>
-                        <InputSelect @bind-Value="articulo.ITBIS" class="form-select text-14">
-                            <option value="0" disabled selected>Seleccione un %</option>
-                            <option value="0">0%</option>
-                            <option value="18">18%</option>
+                    <div class="form-group col-4">
+                        <label>Categoria <div class="oi oi-sort-ascending"></div></label>
+                        <InputSelect @bind-Value="articulo.CategoriaId" class="form-select text-14">
+                            <option value="0" disabled selected>Seleccione una categoria</option>
+                            @foreach (var item in CategoriaList)
+                            {
+                                <option value="@item.CategoriaId">@item.Descripcion</option>
+                            }
                         </InputSelect>
-                        <ValidationMessage For="@(() => articulo.ITBIS)" />
+                        <ValidationMessage For="@(() => articulo.CategoriaId)" />
                     </div>
 
-                    @*...................... Consultar Articulo ......................*@
+                    @*...................... Cantidad ......................*@
 
-                    <p />
-                    <p />
-                    <div class="form-group col-md-3" style="margin: auto;">
-                        <a class="rz-border-radius-4 shadow border border-4 btn btn-lg btn btn-warning"
-                            data-toggle="tooltip" data-placement="right" title="Ingresar a la consulta"
-                            href="c_articulo">Articulos
-                            <span class="oi oi-beaker">
-                            </span>
-                        </a>
+                    <div class="form-group col-3">
+                        <label>Cantidad</label>
+                        <InputNumber @bind-Value="articulo.Cantidad" class="form-control" />
+                        <ValidationMessage For="@(() => articulo.Cantidad)" />
                     </div>
-                    </form>
-
-
                 </div>
                 <br>
-                
 
                 <div class="row">
 
-                    <div class="form-group col-3" style="margin: auto;">
+                    <div class="form-group col-3">
                         <label>Costo / Unidad</label>
                         <InputNumber @bind-Value="articulo.Costo" class="form-control" />
                         <ValidationMessage For="@(() => articulo.Costo)" />
@@ -120,7 +76,7 @@
 
                     @*...................... Precio ......................*@
 
-                    <div class="form-group col-3" style="margin: auto;">
+                    <div class="form-group col-3">
                         <label>Precio</label>
                         <InputNumber @bind-Value="articulo.Precio" class="form-control" />
                         <ValidationMessage For="@(() => articulo.Precio)" />
@@ -128,7 +84,7 @@
 
                     @*...................... ITBIS ......................*@
 
-                    <div class="form-group col-md-3" style="margin: auto;">
+                    <div class="form-group col-md-3">
                         <label>ITBIS</label>
                         <InputSelect @bind-Value="articulo.ITBIS" class="form-select text-14">
                             <option value="0" disabled selected>Seleccione un %</option>
@@ -144,8 +100,8 @@
                     <p />
                     <div class="form-group col-md-3" style="margin: auto;">
                         <a class="rz-border-radius-4 shadow border border-4 btn btn-lg btn btn-warning"
-                            data-toggle="tooltip" data-placement="right" title="Ingresar a la consulta"
-                            href="c_articulo">Articulos
+                            data-toggle="tooltip" data-placement="right" title="Ingresar al inventario"
+                            href="inventario">Articulos
                             <span class="oi oi-beaker">
                             </span>
                         </a>

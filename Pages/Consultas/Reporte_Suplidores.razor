@@ -1,0 +1,84 @@
+@page "/reportesuplidores"
+
+@*--------- Consulta Articulos ---------*@
+@using Models;
+@using ProyectoFinal.BLL;
+
+<EditForm Model="lista">
+    <div class="card shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
+
+        <p />
+        <div class="card-header rz-border-radius-4 shadow text-center">
+            <h4>Suplidores
+                <div class="oi oi-person"></div>
+            </h4>
+        </div>
+
+        <p />
+        <hr>
+        <table class="shadow 4 rz-border-radius-4 table table-light table-striped table-bordered">
+            <thead class="thead">
+                <tr class="text-center table bg-success">
+                    <th class="border border-3">ID</th>
+
+                    <th class="border border-3">Nombre</th>
+
+                    <th class="border border-3">Email</th>
+
+                    <th class="border border-3">Telefono</th>
+
+                    <th class="border border-3">Dirección</th>
+
+                    <th class="border border-3">Ver</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (lista.Count == 0)
+                {
+                    <p />
+                    <span>Empty</span>
+                }
+                else
+                {
+                    @foreach (var item in lista)
+                    {
+                        <tr class="text-center">
+                            <td class="border border-3">@item.SuplidorId</td>
+
+                            <td class="border border-3">@item.Nombre</td>
+
+                            <td class="border border-3">@item.Email</td>
+
+                            <td class="border border-3">@item.Telefono</td>
+
+                            <td class="border border-3">@item.Direccion</td>
+
+                            <td class="border border-3"><a class="btn btn-sm btn-outline-success oi oi-eye"
+                                href="suplidor/@item.SuplidorId"></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <p/>
+</EditForm>
+
+@code {
+
+#nullable disable // Para quitar el aviso de nulls
+    public DateOnly Fecha { get; set; }
+
+    public List<Suplidor> lista { get; set; } = new List<Suplidor>();
+
+    public Suplidor suplidor { get; set; } = new Suplidor();
+
+    [Inject]
+    public SuplidorBLL suplidorBLL { get; set; }
+
+    protected override void OnInitialized()
+    {
+        lista = suplidorBLL.GetList(e => true);
+    }
+}
