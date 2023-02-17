@@ -1,0 +1,153 @@
+@page "/inventario"
+
+@*--------- Consulta Articulos ---------*@
+@using Models;
+@using ProyectoFinal.BLL;
+
+<EditForm Model="lista">
+    <div class="card shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
+
+        <p/>
+        <div class="card-header rz-border-radius-4 shadow text-center">
+            <h4>Inventario de productos
+                <div class="oi oi-hard-drive"></div>
+            </h4>
+        </div>
+
+        <p/>
+        <hr>
+        <table class="shadow 4 rz-border-radius-4 table table-light table-striped table-bordered">
+            <thead class="thead">
+                <tr class="text-center table bg-success">
+                    <th class="border border-3">Código</th>
+
+                    <th class="border border-3">Descripción Articulo</th>
+
+                    <th class="border border-3">Categoria</th>
+
+                    <th class="border border-3">Cantidad</th>
+
+                    <th class="border border-3">Costo / Unidad</th>
+
+                    <th class="border border-3">Precio</th>
+
+                    <th class="border border-3">Fecha de compra</th>
+
+                    <th class="border border-3">Ver</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (lista.Count == 0)
+                {
+                    <p/>
+                    <span>Empty</span>
+                }
+                else
+                {
+                    @foreach (var item in lista)
+                    {
+                        Fecha = DateOnly.FromDateTime(item.FechaCreacion);
+                        descripcion = categoriaBLL.Buscar(item.CategoriaId);
+                        if (descripcion == null) break;
+                        <tr class="text-center">
+                            <td class="border border-3">@item.ArticuloId</td>
+
+                            <td class="border border-3">@item.Nombre</td>
+
+                            <td class="border border-3">@descripcion.Descripcion</td>
+
+                            <td class="border border-3">@item.Cantidad</td>
+
+                            <td class="border border-3">RD$ @item.Costo</td>
+
+                            <td class="border border-3">RD$ @item.Precio</td>
+
+                            <td class="border border-3">@Fecha</td>
+
+                            <td class="border border-3"><a class="btn btn-sm btn-outline-success oi oi-eye"
+                                href="articulo/@item.ArticuloId"></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <form class="row gy-3">
+
+            @*...................... Ventana de reorden ......................*@
+
+            <p />
+            <p />
+            <div class="form-group col-md-3" style="margin: auto;">
+                <a class="rz-border-radius-4 shadow border border-4 btn btn-lg btn btn-danger" data-toggle="tooltip"
+                    data-placement="right" title="Ingresar a la ventana de reorden" href="reorden"> Reorden
+                </a>
+            </div>
+            @*...................... Ventana de orden de compra ......................*@
+
+            <div class="form-group col-md-3" style="margin: auto;">
+                <a class="rz-border-radius-4 shadow border border-4 btn btn-lg btn btn-primary" data-toggle="tooltip"
+                    data-placement="right" title="Ingresar a la ventana de orden de compra" href="ordencompra"> Orden de
+                    compra
+                </a>
+            </div>
+        </form>
+        <hr/>
+    </div>
+    <p/>
+
+    <div class="text-center shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center"
+        style="margin: auto; width: 600px; height: 90px;">
+        <div class="btn-group" role="group">
+            <form class="row gy-3">
+                <div class="form-group" style="width: 120px; height: 80px;">
+                    <label>Total Precios</label>
+                    <InputNumber @bind-Value="@totalPrecio" class="form-control col" readOnly="true" />
+                </div>
+                <div class="form-group" style="width: 120px; height: 80px;">
+                    <label>Total Costos</label>
+                    <InputNumber @bind-Value="@totalPrecio" class="form-control col" readOnly="true" />
+                </div>
+                <div class="form-group" style="width: 130px; height: 80px;">
+                    <label>Total Cantidad</label>
+                    <InputNumber @bind-Value="@totalCantidad" class="form-control col" readOnly="true" />
+                </div>
+            </form>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+#nullable disable // Para quitar el aviso de nulls
+    public DateOnly Fecha { get; set; }
+
+    public List<Articulo> lista { get; set; } = new List<Articulo>();
+    public List<Inventario> listaI { get; set; } = new List<Inventario>();
+
+    public Articulo articulo { get; set; } = new Articulo();
+
+    public Categoria descripcion { get; set; }
+    public decimal totalPrecio { get; set; } = 0;
+
+    public decimal totalCosto { get; set; } = 0;
+
+    public double totalCantidad { get; set; } = 0.0;
+
+    [Inject]
+    public CategoriaBLL categoriaBLL { get; set; }
+
+    [Inject]
+    public ArticuloBLL articuloBLL { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        lista = articuloBLL.GetList(e => true);
+
+        totalPrecio += articulo.Precio;
+        totalCosto += articulo.Costo;
+        totalCantidad += articulo.Cantidad;
+    }
+}
