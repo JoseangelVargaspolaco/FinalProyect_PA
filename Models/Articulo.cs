@@ -40,7 +40,7 @@ namespace Models
         [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Seleccione el % de ITBIS.")]
         public float ITBIS {get; set;}
 
-        public bool EstaEliminado { get; set; } = true;
+        public bool Estado { get; set; } = true;
 
         public int UsuarioId { get; set; }
 

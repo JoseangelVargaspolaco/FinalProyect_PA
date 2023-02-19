@@ -28,7 +28,7 @@ namespace Models
 
         public decimal MetodoDePago { get; set;}
 
-        public bool EstaEliminado { get; set; } = true;
+        public bool Estado { get; set; } = true;
 
 
         //-------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ namespace Models
         [ForeignKey("VentaId")]
         public virtual List<VentasDetalle> ventasDetalle { get; set; } 
 
-         public Ventas()
+        public Ventas()
         {
             VentaId = 0;
             Fecha = DateTime.Now;
@@ -51,6 +51,5 @@ namespace Models
 
             ventasDetalle = new List<VentasDetalle>();
         }
-   
     }
 }

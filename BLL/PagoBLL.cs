@@ -44,7 +44,7 @@ namespace ProyectoFinal.BLL // BLL Para el metodo de pago
             try
             {
                 Lista = contexto.Pago
-                .Where(p => p.EstaEliminado == true)
+                .Where(p => p.Estado == true)
                 .Where(pago)
                 .AsNoTracking()
                 .ToList();

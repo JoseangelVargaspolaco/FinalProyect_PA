@@ -15,7 +15,7 @@ namespace Models
 
         [Required(ErrorMessage = "Campo obligatorio. Seleccione una categoria")]
         public string Descripcion{ get; set; } // Nombre de la categoria
-        public bool EstaEliminado { get; set; } = true;             
+        public bool Estado { get; set; } = true;             
 
     }
 }

@@ -101,7 +101,7 @@ namespace ProyectoFinal.BLL
         public Suplidor Buscar(int id)
         {
             return contexto.Suplidor
-                .Where(s => s.SuplidorId == id && s.EstaEliminado == true)
+                .Where(s => s.SuplidorId == id && s.Estado == true)
                 .SingleOrDefault();
         }
  
@@ -115,7 +115,7 @@ namespace ProyectoFinal.BLL
 
                 if (suplidor != null)
                 {
-                    suplidor.EstaEliminado = false;
+                    suplidor.Estado = false;
                     Eliminado = contexto.SaveChanges() > 0;
                 }
             }
@@ -132,7 +132,7 @@ namespace ProyectoFinal.BLL
             try
             {
                 Lista = contexto.Suplidor
-                .Where(c => c.EstaEliminado == true)
+                .Where(c => c.Estado == true)
                 .Where(suplidor)
                 .AsNoTracking()
                 .ToList();

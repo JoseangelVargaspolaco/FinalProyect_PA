@@ -92,7 +92,7 @@
                 <table class="table table-light table-striped table-bordered">
                     <thead class="thead">
                         <tr class="table">
-                            <th>ArticuloId</th>
+                            <th>Código</th>
 
                             <th>Descripcion</th>
 
@@ -109,7 +109,6 @@
                             @foreach (var item in venta.ventasDetalle)
                             {
                                 <tr>
-                                    <td></td>
                                     <td>@item.ArticuloId</td>
                                     <td>@item.Descripcion</td>
                                     <td>@item.Cantidad</td>
@@ -190,7 +189,7 @@
                 <div class="form-group col-md-3" style="margin: auto;">
                     <a class="rz-border-radius-4 shadow border border-4 btn btn-lg btn btn-warning"
                         data-toggle="tooltip" data-placement="right" title="Ingresar al reporte"
-                        href="reporteventas">Ventas
+                        href="c_ventas">Ventas
                         <span class="oi oi-cart">
                         </span>
                     </a>
@@ -434,7 +433,7 @@
 
         if (guardado)
         {
-
+            guardado = true;
             venta = new Ventas();
             Detalle = new VentasDetalle();
             ArticuloSeleccionado = 0;
@@ -444,7 +443,7 @@
 
         }
         else
-            Toast.ShowError("No fue posible guardar");
+            Toast.ShowError("No fue posible guardar ");
 
     }
 
@@ -460,14 +459,12 @@
 
                 Toast.ShowSuccess($"Venta : {venta.VentaId}, encontrada");
                 // Indicando el id de la venta encontrada
-
             }
             else
             {
                 Toast.ShowWarning($"Id : {venta.VentaId}, no esta registrado");
             }
         }
-
     }
 
     public void AgregarDetalle() // Agregar detalle de venta

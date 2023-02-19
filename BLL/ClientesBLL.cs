@@ -105,7 +105,7 @@ namespace ProyectoFinal.BLL
         public Clientes Buscar(int id)
         {
             return contexto.Clientes
-                .Where(a => a.ClienteId == id && a.EstaEliminado == true)
+                .Where(a => a.ClienteId == id && a.Estado == true)
                 .SingleOrDefault();
         }
  
@@ -119,7 +119,7 @@ namespace ProyectoFinal.BLL
 
                 if (cliente != null)
                 {
-                    cliente.EstaEliminado = false;
+                    cliente.Estado = false;
                     Eliminado = contexto.SaveChanges() > 0;
                 }
             }
@@ -136,7 +136,7 @@ namespace ProyectoFinal.BLL
             try
             {
                 Lista = contexto.Clientes
-                .Where(c => c.EstaEliminado == true)
+                .Where(c => c.Estado == true)
                 .Where(cliente)
                 .AsNoTracking()
                 .ToList();

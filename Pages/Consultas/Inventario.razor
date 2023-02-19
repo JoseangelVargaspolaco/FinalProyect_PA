@@ -96,26 +96,6 @@
         <hr/>
     </div>
     <p/>
-
-    <div class="text-center shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center"
-        style="margin: auto; width: 600px; height: 90px;">
-        <div class="btn-group" role="group">
-            <form class="row gy-3">
-                <div class="form-group" style="width: 120px; height: 80px;">
-                    <label>Total Precios</label>
-                    <InputNumber @bind-Value="@totalPrecio" class="form-control col" readOnly="true" />
-                </div>
-                <div class="form-group" style="width: 120px; height: 80px;">
-                    <label>Total Costos</label>
-                    <InputNumber @bind-Value="@totalPrecio" class="form-control col" readOnly="true" />
-                </div>
-                <div class="form-group" style="width: 130px; height: 80px;">
-                    <label>Total Cantidad</label>
-                    <InputNumber @bind-Value="@totalCantidad" class="form-control col" readOnly="true" />
-                </div>
-            </form>
-        </div>
-    </div>
 </EditForm>
 
 @code {
@@ -124,16 +104,10 @@
     public DateOnly Fecha { get; set; }
 
     public List<Articulo> lista { get; set; } = new List<Articulo>();
-    public List<Inventario> listaI { get; set; } = new List<Inventario>();
 
     public Articulo articulo { get; set; } = new Articulo();
 
     public Categoria descripcion { get; set; }
-    public decimal totalPrecio { get; set; } = 0;
-
-    public decimal totalCosto { get; set; } = 0;
-
-    public double totalCantidad { get; set; } = 0.0;
 
     [Inject]
     public CategoriaBLL categoriaBLL { get; set; }

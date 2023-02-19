@@ -29,7 +29,7 @@ namespace ProyectoFinal.BLL // BLL Para la categoria del articulo
             try
             {
                 categoria = contexto.Categoria
-                .Where(p => p.CategoriaId == id && p.EstaEliminado == true)
+                .Where(p => p.CategoriaId == id && p.Estado == true)
                 .AsNoTracking()
                 .SingleOrDefault();
             }
@@ -47,7 +47,7 @@ namespace ProyectoFinal.BLL // BLL Para la categoria del articulo
             try
             {
                 Lista = contexto.Categoria
-                .Where(c => c.EstaEliminado == true)
+                .Where(c => c.Estado == true)
                 .Where(categoria)
                 .AsNoTracking()
                 .ToList();

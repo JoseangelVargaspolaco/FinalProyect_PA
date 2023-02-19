@@ -59,8 +59,6 @@ namespace Models
             Cantidad = cantidad;
             PrecioArticulo = precioArticulo;
             Descripcion = descripcion;
-           
         }
-
     }
 }

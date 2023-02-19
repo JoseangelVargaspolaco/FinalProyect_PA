@@ -6,7 +6,5 @@ using System.ComponentModel.DataAnnotations;
    
 namespace Models 
 { 
-    public class Usuarios : IdentityUser<int>
-    {
-    }
+    public class Usuarios : IdentityUser<int>{}
 }

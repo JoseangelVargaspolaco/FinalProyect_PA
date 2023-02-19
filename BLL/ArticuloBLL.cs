@@ -105,7 +105,7 @@ namespace ProyectoFinal.BLL
         public Articulo Buscar(int id)
         {
             return contexto.Articulo
-                .Where(a => a.ArticuloId == id && a.EstaEliminado == true)
+                .Where(a => a.ArticuloId == id && a.Estado == true)
                 .SingleOrDefault();
         }
  
@@ -119,7 +119,7 @@ namespace ProyectoFinal.BLL
 
                 if (articulo!= null)
                 {
-                    articulo.EstaEliminado = false;
+                    articulo.Estado = false;
                     Eliminado = contexto.SaveChanges() > 0;
                 }
             }
@@ -136,7 +136,7 @@ namespace ProyectoFinal.BLL
             try
             {
                 Lista = contexto.Articulo
-                .Where(a => a.EstaEliminado == true)
+                .Where(a => a.Estado == true)
                 .Where(articulo)
                 .AsNoTracking()
                 .ToList();

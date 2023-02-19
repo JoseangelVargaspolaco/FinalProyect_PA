@@ -15,7 +15,7 @@ namespace Models
 
         [Required(ErrorMessage = "Campo obligatorio. Seleccione un metodo de pago")]
         public string Metodo { get; set; } // Metodo de pago 
-        public bool EstaEliminado { get; set; } = true;     
+        public bool Estado { get; set; } = true;     
 
     }
 }

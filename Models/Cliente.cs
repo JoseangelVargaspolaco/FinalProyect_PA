@@ -37,7 +37,7 @@ namespace Models
         [DataType(DataType.Date)]
         public DateTime FechaNacimiento { get; set; }
         public int UsuarioId { get; set; }
-        public bool EstaEliminado { get; set; } = true;
+        public bool Estado { get; set; } = true;
 
              
 
@@ -54,10 +54,6 @@ namespace Models
             Direccion = string.Empty;
             Cedula = string.Empty;
             FechaNacimiento = DateTime.Now;
-            
-           
-            
         }  
-
     }
 }

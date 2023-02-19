@@ -11,8 +11,8 @@ using ProyectoFinal.Data;
 namespace ProyectoFinal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230217011259_Segunda")]
-    partial class Segunda
+    [Migration("20230219213622_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -164,7 +164,7 @@ namespace ProyectoFinal.Migrations
                     b.Property<decimal>("Costo")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("EstaEliminado")
+                    b.Property<bool>("Estado")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("FechaCreacion")
@@ -200,7 +200,7 @@ namespace ProyectoFinal.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("EstaEliminado")
+                    b.Property<bool>("Estado")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("CategoriaId");
@@ -212,31 +212,31 @@ namespace ProyectoFinal.Migrations
                         {
                             CategoriaId = 1,
                             Descripcion = "Bebidas",
-                            EstaEliminado = true
+                            Estado = true
                         },
                         new
                         {
                             CategoriaId = 2,
                             Descripcion = "Frutas",
-                            EstaEliminado = true
+                            Estado = true
                         },
                         new
                         {
                             CategoriaId = 3,
                             Descripcion = "Lacteos",
-                            EstaEliminado = true
+                            Estado = true
                         },
                         new
                         {
                             CategoriaId = 4,
                             Descripcion = "Vegetales",
-                            EstaEliminado = true
+                            Estado = true
                         },
                         new
                         {
                             CategoriaId = 5,
                             Descripcion = "Carnes",
-                            EstaEliminado = true
+                            Estado = true
                         });
                 });
 
@@ -262,7 +262,7 @@ namespace ProyectoFinal.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("EstaEliminado")
+                    b.Property<bool>("Estado")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("FechaNacimiento")
@@ -290,7 +290,7 @@ namespace ProyectoFinal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("EstaEliminado")
+                    b.Property<bool>("Estado")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Metodo")
@@ -305,19 +305,19 @@ namespace ProyectoFinal.Migrations
                         new
                         {
                             PagoId = 1,
-                            EstaEliminado = true,
+                            Estado = true,
                             Metodo = "Deposito"
                         },
                         new
                         {
                             PagoId = 2,
-                            EstaEliminado = true,
+                            Estado = true,
                             Metodo = "Efectivo"
                         },
                         new
                         {
                             PagoId = 3,
-                            EstaEliminado = true,
+                            Estado = true,
                             Metodo = "Tarjeta de credito"
                         });
                 });
@@ -340,7 +340,7 @@ namespace ProyectoFinal.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("EstaEliminado")
+                    b.Property<bool>("Estado")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Fecha")
@@ -433,7 +433,7 @@ namespace ProyectoFinal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("EstaEliminado")
+                    b.Property<bool>("Estado")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Existencia")

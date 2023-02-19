@@ -57,7 +57,7 @@ namespace ProyectoFinal.Migrations
                     CategoriaId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: false),
-                    EstaEliminado = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Estado = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,7 +78,7 @@ namespace ProyectoFinal.Migrations
                     Cedula = table.Column<string>(type: "TEXT", nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UsuarioId = table.Column<int>(type: "INTEGER", nullable: false),
-                    EstaEliminado = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Estado = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,7 +92,7 @@ namespace ProyectoFinal.Migrations
                     PagoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Metodo = table.Column<string>(type: "TEXT", nullable: false),
-                    EstaEliminado = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Estado = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,7 +112,7 @@ namespace ProyectoFinal.Migrations
                     DescripcionArticulo = table.Column<string>(type: "TEXT", nullable: false),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UsuarioId = table.Column<int>(type: "INTEGER", nullable: false),
-                    EstaEliminado = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Estado = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -238,7 +238,7 @@ namespace ProyectoFinal.Migrations
                     Costo = table.Column<decimal>(type: "TEXT", nullable: false),
                     Precio = table.Column<decimal>(type: "TEXT", nullable: false),
                     ITBIS = table.Column<float>(type: "REAL", nullable: false),
-                    EstaEliminado = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Estado = table.Column<bool>(type: "INTEGER", nullable: false),
                     UsuarioId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -267,7 +267,7 @@ namespace ProyectoFinal.Migrations
                     PagoObtenido = table.Column<decimal>(type: "TEXT", nullable: false),
                     MontoRestante = table.Column<decimal>(type: "TEXT", nullable: false),
                     MetodoDePago = table.Column<decimal>(type: "TEXT", nullable: false),
-                    EstaEliminado = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Estado = table.Column<bool>(type: "INTEGER", nullable: false),
                     PagoId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -314,42 +314,42 @@ namespace ProyectoFinal.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categoria",
-                columns: new[] { "CategoriaId", "Descripcion", "EstaEliminado" },
+                columns: new[] { "CategoriaId", "Descripcion", "Estado" },
                 values: new object[] { 1, "Bebidas", true });
 
             migrationBuilder.InsertData(
                 table: "Categoria",
-                columns: new[] { "CategoriaId", "Descripcion", "EstaEliminado" },
+                columns: new[] { "CategoriaId", "Descripcion", "Estado" },
                 values: new object[] { 2, "Frutas", true });
 
             migrationBuilder.InsertData(
                 table: "Categoria",
-                columns: new[] { "CategoriaId", "Descripcion", "EstaEliminado" },
+                columns: new[] { "CategoriaId", "Descripcion", "Estado" },
                 values: new object[] { 3, "Lacteos", true });
 
             migrationBuilder.InsertData(
                 table: "Categoria",
-                columns: new[] { "CategoriaId", "Descripcion", "EstaEliminado" },
+                columns: new[] { "CategoriaId", "Descripcion", "Estado" },
                 values: new object[] { 4, "Vegetales", true });
 
             migrationBuilder.InsertData(
                 table: "Categoria",
-                columns: new[] { "CategoriaId", "Descripcion", "EstaEliminado" },
+                columns: new[] { "CategoriaId", "Descripcion", "Estado" },
                 values: new object[] { 5, "Carnes", true });
 
             migrationBuilder.InsertData(
                 table: "Pago",
-                columns: new[] { "PagoId", "EstaEliminado", "Metodo" },
+                columns: new[] { "PagoId", "Estado", "Metodo" },
                 values: new object[] { 1, true, "Deposito" });
 
             migrationBuilder.InsertData(
                 table: "Pago",
-                columns: new[] { "PagoId", "EstaEliminado", "Metodo" },
+                columns: new[] { "PagoId", "Estado", "Metodo" },
                 values: new object[] { 2, true, "Efectivo" });
 
             migrationBuilder.InsertData(
                 table: "Pago",
-                columns: new[] { "PagoId", "EstaEliminado", "Metodo" },
+                columns: new[] { "PagoId", "Estado", "Metodo" },
                 values: new object[] { 3, true, "Tarjeta de credito" });
 
             migrationBuilder.CreateIndex(

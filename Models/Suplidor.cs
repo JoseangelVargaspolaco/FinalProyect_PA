@@ -32,7 +32,7 @@ namespace Models
         [DataType(DataType.Date)]
         public DateTime Fecha { get; set; }
         public int UsuarioId { get; set; }
-        public bool EstaEliminado { get; set; } = true; 
+        public bool Estado { get; set; } = true; 
 
         //-------------------------------------------------------------------------------------
 

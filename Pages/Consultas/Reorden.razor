@@ -1,13 +1,91 @@
 @page "/reorden"
 
-<a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-warning" data-toggle="tooltip"
-    data-placement="right" title="Regresar al inventario" href="inventario"> <i class="oi oi-arrow-circle-left" /></a>
-<br />
-<p/>
+@*--------- Reorden Articulos ---------*@
+@using Models;
+@using ProyectoFinal.BLL;
 
-<p/>
-<p/>
+<EditForm Model="lista">
 
-<hr>
-<h1>EN PROCESO ....</h1>
-<hr>
+    <a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-warning" data-toggle="tooltip"
+        data-placement="right" title="Regresar al inventario" href="inventario"> <i
+            class="oi oi-arrow-circle-left" /></a>
+    <br />
+    <p />
+
+    <div class="card shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
+
+        <p />
+        <div class="card-header rz-border-radius-4 shadow text-center">
+            <h4>Reorden Articulos
+                <div class="oi oi-beaker"></div>
+            </h4>
+        </div>
+
+        <p />
+        <hr>
+        <p/>
+        <table class="shadow 4 rz-border-radius-4 table table-light table-striped table-bordered">
+            <thead class="thead">
+                <tr class="text-center table bg-success">
+                    <th>Código</th>
+
+                    <th>Nombre</th>
+
+                    <th>Categoria</th>
+
+                    <th>Cantidad</th>
+
+                    <th>Ver</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in lista)
+                {
+                    @if (item.Cantidad <= 50)
+                    {
+                        descripcion = categoriaBLL.Buscar(item.CategoriaId);
+                        @if (descripcion == null) break;
+                        <tr class="text-center">
+                            <td class="border border-3">@item.ArticuloId</td>
+
+                            <td class="border border-3">@item.Nombre</td>
+
+                            <td class="border border-3">@descripcion.Descripcion</td>
+
+                            <td class="border border-3">@item.Cantidad</td>
+
+                            <td class="border border-3"><a class="btn btn-sm btn-outline-success oi oi-eye"
+                                    href="articulo/@item.ArticuloId"></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <hr>
+    </div>
+    <p />
+</EditForm>
+
+@code {
+
+#nullable disable // Para quitar el aviso de nulls
+    public DateOnly Fecha { get; set; }
+
+    public List<Articulo> lista { get; set; } = new List<Articulo>();
+
+    public Articulo articulos { get; set; } = new Articulo();
+
+    public Categoria descripcion { get; set; }
+
+    [Inject]
+    public CategoriaBLL categoriaBLL { get; set; }
+
+    [Inject]
+    public ArticuloBLL articuloBLL { get; set; }
+
+    protected override void OnInitialized()
+    {
+        lista = articuloBLL.GetList(e => true);
+    }
+}

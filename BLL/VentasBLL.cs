@@ -96,7 +96,7 @@ namespace ProyectoFinal.BLL
             {
                 ventas = contexto.Ventas
                 .Include( e => e.ventasDetalle)
-                .Where( e => e.VentaId == id && e.EstaEliminado == true).SingleOrDefault();
+                .Where( e => e.VentaId == id && e.Estado == true).SingleOrDefault();
             }
             catch (Exception)
             {
@@ -111,8 +111,7 @@ namespace ProyectoFinal.BLL
             bool paso = false;
 
             try
-            {
-                            
+            {           
                var venta = Buscar(id);
 
                 if (venta != null)
@@ -123,8 +122,7 @@ namespace ProyectoFinal.BLL
                         item.articulo.Cantidad += item.Cantidad;
                     }
 
-
-                    venta.EstaEliminado = false;
+                    venta.Estado = false;
                     paso = contexto.SaveChanges() > 0;
                 }
             }
@@ -141,7 +139,7 @@ namespace ProyectoFinal.BLL
             try
             {
                 Lista =  contexto.Ventas
-                .Where(v => v.EstaEliminado == true)
+                .Where(v => v.Estado == true)
                 .Where(ventas)
                 .ToList();
             }
