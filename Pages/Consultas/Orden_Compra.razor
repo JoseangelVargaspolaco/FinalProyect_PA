@@ -1,12 +1,107 @@
-@page "/ordencompra"
+@page "/ordencompras"
 
-<a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-warning" data-toggle="tooltip"
-    data-placement="right" title="Regresar al inventario" href="inventario"> <i class="oi oi-arrow-circle-left" /></a>
-<br/>
-<p/>
+@*--------- Orden de compras Articulos ---------*@
 
-<p/>
-<p/>
-<hr>
-<h1>EN PROCESO ....</h1>
-<hr>
+@using Models;
+@using ProyectoFinal.BLL;
+
+<EditForm Model="lista">
+
+    <a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-warning" data-toggle="tooltip"
+       data-placement="right" title="Regresar al inventario" href="inventario">
+        <i class="oi oi-arrow-circle-left"/>
+    </a>
+    <br/>
+    <p/>
+
+    <div class="card shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
+
+        <p/>
+        <div class="card-header rz-border-radius-4 shadow text-center">
+            <h4>
+                Orden de compras
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001 6.971 2.789Zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
+                </svg>
+            </h4>
+        </div>
+        <p/>
+        <hr>
+        <table class="shadow 4 rz-border-radius-4 table table-light table-striped table-bordered">
+            <thead class="thead">
+            <tr class="text-center table bg-inventariocolor">
+                <th class="border border-3">Descripción Articulo</th>
+
+                <th class="border border-3">Categoria</th>
+
+                <th class="border border-3">Cantidad</th>
+
+                <th class="border border-3">Compra</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (lista.Count == 0)
+            {
+                <p/>
+                <span>Empty</span>
+            }
+            else
+            {
+                @foreach (Articulo item in lista)
+                {
+                    if (item.Cantidad <= 50)
+                    {
+                        Fecha = DateOnly.FromDateTime(item.FechaCreacion);
+                        descripcion = categoriaBLL.Buscar(item.CategoriaId);
+                        if (descripcion == null) break;
+                        <tr class="text-center">
+
+                            <td class="border border-3">@item.Nombre</td>
+
+                            <td class="border border-3">@descripcion.Descripcion</td>
+
+                            <td class="border border-3">@item.Cantidad</td>
+
+                            <td class="border border-3">
+                                <a type="button" class="btn-sm rz-border-radius-4 border border-3 shadow border border-4 btn-lg btn btn-success"
+                                   href="articulo/@item.ArticuloId">
+                                    Compra <i class="oi oi-cart"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+            </tbody>
+        </table>
+        <div class="nav-item">
+                <a class="text-center nav-link active" title="Ingresar al registro de articulos" aria-current="page" href="articulo">¿Quieres agregar un nuevo articulo?</a>
+        </div>
+    </div>
+    <p/>
+</EditForm>
+
+@code {
+
+#nullable disable // Para quitar el aviso de nulls
+    public DateOnly Fecha { get; set; }
+
+    public List<Articulo> lista { get; set; } = new List<Articulo>();
+
+    public Articulo articulo { get; set; } = new Articulo();
+
+    public Categoria descripcion { get; set; }
+
+    [Inject]
+    public CategoriaBLL categoriaBLL { get; set; }
+
+    [Inject]
+    public ArticuloBLL articuloBLL { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        lista = articuloBLL.GetList(e => true);
+    }
+
+}

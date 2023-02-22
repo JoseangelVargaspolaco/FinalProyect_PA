@@ -6,17 +6,23 @@
 <EditForm Model="suplidor">
 
     <a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-warning" data-toggle="tooltip"
-        data-placement="right" title="Regresar al formulario" href="suplidor"> <i class="oi oi-arrow-circle-left" /></a>
-    <br />
-    <p />
+       data-placement="right" title="Regresar al formulario" href="suplidor">
+        <i class="oi oi-arrow-circle-left"/>
+    </a>
+    <br/>
+    <p/>
 
     <div class="card ">
         <div class="card-header">
-            <h4>Consulta Suplidores
-                <div class="oi oi-person"></div>
+
+            <h4>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                    <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+                </svg> Consulta Suplidores <i class="oi oi-cart"></i>
             </h4>
         </div>
-        
+
         <div class="card-body">
             <form>
                 <div class="input-group d-flex align-items-end">
@@ -32,11 +38,11 @@
                     <div class="Form-group col-3">
                         <label>Criterio</label>
                         <InputText class="form-control" @bind-Value="Criterio"
-                            placeholder="Ingrese el criterio de busqueda" />
+                                   placeholder="Ingrese el criterio de busqueda"/>
                     </div>
 
-                    <button type="button" class="btn btn-success" @onclick="Consultar">
-                        <i class="oi oi-grid-four-up mr-2" /> Consultar
+                    <button type="button" class="btn btn-consulta" @onclick="Consultar" title="Consultar suplidores">
+                        <i class="oi oi-grid-four-up mr-2"/> Consultar
                     </button>
                 </div>
                 <hr>
@@ -45,13 +51,13 @@
 
                     <div class="Form-group col-2">
                         <span class="form-group ">Desde</span>
-                        <InputDate @bind-Value="fechaDesde" class="form-control" />
+                        <InputDate @bind-Value="fechaDesde" class="form-control"/>
                     </div>
 
 
                     <div class="Form-group col-2">
                         <span class="form-group">Hasta</span>
-                        <InputDate @bind-Value="fechaHasta" class="form-control" />
+                        <InputDate @bind-Value="fechaHasta" class="form-control"/>
                     </div>
                 </div>
             </form>
@@ -59,54 +65,59 @@
 
         <table class="table table-light table-striped table-bordered">
             <thead class="thead">
-                <tr class="table">
+            <tr class="table">
 
-                    <th>Nombre</th>
+                <th>Nombre</th>
 
-                    <th>Email</th>
+                <th>Email</th>
 
-                    <th>Teléfono</th>
+                <th>Teléfono</th>
 
-                    <th>Dirección <div class="oi oi-map-marker"></div>
-                    </th>
+                <th>
+                    Dirección
+                    <div class="oi oi-map-marker"></div>
+                </th>
 
-                    <th>Descripción del articulo <div class="oi oi-credit-breack"></div>
-                    </th>
+                <th>
+                    Descripción del articulo
+                    <div class="oi oi-credit-breack"></div>
+                </th>
 
-                    <th>Fecha Ingreso</th>
+                <th>Fecha Ingreso</th>
 
-                    <th>Ver</th>
+                <th>Ver</th>
 
-                </tr>
+            </tr>
             </thead>
             <tbody>
-                @if (suplidorList.Count == 0)
+            @if (suplidorList.Count == 0)
+            {
+                <span>Empty</span>
+            }
+            else
+            {
+                @foreach (var item in suplidorList)
                 {
-                    <span>Empty</span>
+                    Fecha = DateOnly.FromDateTime(item.Fecha);
+                    <tr>
+                        <td>@item.Nombre</td>
+
+                        <td>@item.Email</td>
+
+                        <td>@item.Telefono</td>
+
+                        <td>@item.Direccion</td>
+
+                        <td>@item.DescripcionArticulo</td>
+
+                        <td>@Fecha</td>
+
+                        <td>
+                            <a class="btn btn-sm btn-outline-success oi oi-eye" href="suplidor/@item.SuplidorId"></a>
+                        </td>
+                    </tr>
                 }
-                else
-                {
-                    @foreach (var item in suplidorList)
-                    {
-                        Fecha = DateOnly.FromDateTime(item.Fecha);
-                        <tr>
-                            <td>@item.Nombre</td>
-
-                            <td>@item.Email</td>
-
-                            <td>@item.Telefono</td>
-
-                            <td>@item.Direccion</td>
-
-                            <td>@item.DescripcionArticulo</td>
-
-                            <td>@Fecha</td>
-
-                            <td><a class="btn btn-sm btn-outline-success oi oi-eye" href="suplidor/@item.SuplidorId"></a>
-                            </td>
-                        </tr>
-                    }
-                }
+            }
             </tbody>
         </table>
     </div>
@@ -128,6 +139,7 @@
 
     [Inject]
     public SuplidorBLL suplidorBLL { get; set; }
+
     bool listado = false;
 
     protected override void OnInitialized()
@@ -135,6 +147,7 @@
         Filtro = "0";
         suplidorList = suplidorBLL.GetList(e => true);
     }
+
     private void Consultar()
     {
         suplidorList = new List<Suplidor>();
@@ -156,4 +169,5 @@
             suplidorList = suplidorBLL.GetList(e => e.Fecha >= fechaDesde && e.Fecha <= fechaHasta);
         }
     }
+
 }

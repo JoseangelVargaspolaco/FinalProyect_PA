@@ -14,8 +14,109 @@ a, .btn-link {
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #5590e9;
+    border-color: #2b68c4;
+    border-radius: 10px;
+    
+}
+
+.btn-primary:hover{
+    color: #fff;
+    background-color: #2f6bc5;
+    border-color: #5286d4;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #18d37c;
+    border-color: #2f925b;
+    border-radius: 10px;
+}
+
+.btn-success:hover{
+    color: #fff;
+    background-color: #14a05f;
+    border-color: #2f925b;
+}
+
+
+.btn-danger {
+    color: #fff;
+    background-color: #ee5252;
+    border-color: #c73333;
+    border-radius: 10px;
+}
+
+.btn-danger:hover{
+    color: #fff;
+    background-color: #c03737;
+    border-color: #c73333;
+}
+
+.btn-warning {
+    color: #ffffff;
+    background-color:  #f16c38;
+    border-color: #f16c38;
+    border-radius: 10px;
+}
+
+.btn-warning:hover{
+    color: #ffffff;
+    background-color:  #ff500b;
+    border-color: #f16c38;
+}
+
+.btn-añadir {
+    color: #ffffff;
+    background-color: #5590e9;
+    border-color: #2b68c4;
+    border-radius: 17px;
+}
+
+.btn-añadir:hover{
+    color: #fff;
+    background-color: #2f6bc5;
+    border-color: #5286d4;
+}
+
+.btn-ordencompra {
+    color: #494949;
+    background-color: #cbd47a;
+    border-color: #ec88da;
+    border-radius: 17px;
+}
+
+.btn-ordencompra:hover{
+    color: #fff;
+    background-color: #a772a7;
+    border-color: #f0a0e2;
+}
+
+.bg-inventariocolor {
+    color: #2c2c2c;
+    background-color: #66c08f;
+    border-color: #358566;
+    border-radius: 17px;
+}
+
+.bg-reportecolor {
+    color: #525252;
+    background-color: #feffbe;
+    border-color: #eaf7a4;
+   
+}
+
+.btn-consulta {
+    color: #ffffff;
+    background-color: #9a55e9;
+    border-color: #693e99;
+    border-radius: 17px;
+}
+
+.btn-consulta:hover{
+    color: #fff;
+    background-color: #7029c2;
+    border-color: #693e99;
 }
 
 .content {

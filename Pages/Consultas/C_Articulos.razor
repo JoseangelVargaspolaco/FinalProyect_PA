@@ -6,15 +6,23 @@
 <EditForm Model="lista">
 
     <a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-warning" data-toggle="tooltip"
-        data-placement="right" title="Regresar al formulario" href="articulo"> <i class="oi oi-arrow-circle-left" /></a>
-    <br />
-    <p />
+       data-placement="right" title="Regresar al formulario" href="articulo">
+        <i class="oi oi-arrow-circle-left"/>
+    </a>
+    <br/>
+    <p/>
 
     <div class="card ">
 
         <div class="card-header">
-            <h4>Consulta Articulos
-                <div class="oi oi-beaker"></div>
+            <h4>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                    <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+                </svg> Consulta Articulos
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-scooter" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M9 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-.39l1.4 7a2.5 2.5 0 1 1-.98.195l-.189-.938-2.43 3.527A.5.5 0 0 1 9.5 13H4.95a2.5 2.5 0 1 1 0-1h4.287l2.831-4.11L11.09 3H9.5a.5.5 0 0 1-.5-.5ZM3.915 12a1.5 1.5 0 1 0 0 1H2.5a.5.5 0 0 1 0-1h1.415Zm8.817-.789A1.499 1.499 0 0 0 13.5 14a1.5 1.5 0 0 0 .213-2.985l.277 1.387a.5.5 0 0 1-.98.196l-.278-1.387Z"/>
+                </svg>
             </h4>
         </div>
 
@@ -35,11 +43,11 @@
                     <div class="Form-group col-3">
                         <label>Criterio</label>
                         <InputText class="form-control" @bind-Value="Criterio"
-                            placeholder="Ingrese el criterio de busqueda" />
+                                   placeholder="Ingrese el criterio de busqueda"/>
                     </div>
 
-                    <button type="button" class="btn btn-success" @onclick="Consultar">
-                        <i class="oi oi-grid-four-up mr-2" /> Consultar
+                    <button type="button" class="btn btn-consulta" @onclick="Consultar" title="Consultar articulos">
+                        <i class="oi oi-grid-four-up mr-2"/> Consultar
                     </button>
                 </div>
                 <hr>
@@ -48,13 +56,13 @@
 
                     <div class="Form-group col-2">
                         <span class="form-group ">Desde</span>
-                        <InputDate @bind-Value="fechaDesde" class="form-control" />
+                        <InputDate @bind-Value="fechaDesde" class="form-control"/>
                     </div>
 
 
                     <div class="Form-group col-2">
                         <span class="form-group">Hasta</span>
-                        <InputDate @bind-Value="fechaHasta" class="form-control" />
+                        <InputDate @bind-Value="fechaHasta" class="form-control"/>
                     </div>
                 </div>
             </form>
@@ -62,63 +70,64 @@
 
         <table class="table table-light table-striped table-bordered">
             <thead class="thead">
-                <tr class="table">
+            <tr class="table">
 
-                    <th>Código</th>
+                <th>Código</th>
 
-                    <th>Nombre</th>
+                <th>Nombre</th>
 
-                    <th>Categoria</th>
+                <th>Categoria</th>
 
-                    <th>Cantidad</th>
+                <th>Cantidad</th>
 
-                    <th>Costo / Unidad</th>
+                <th>Costo / Unidad</th>
 
-                    <th>Precio / Venta</th>
+                <th>Precio / Venta</th>
 
-                    <th>ITBIS</th>
+                <th>ITBIS</th>
 
-                    <th>Fecha Registro</th>
+                <th>Fecha Registro</th>
 
-                    <th>Ver</th>
+                <th>Ver</th>
 
-                </tr>
+            </tr>
             </thead>
             <tbody>
 
-                @if (lista.Count == 0)
+            @if (lista.Count == 0)
+            {
+                <span>Empty</span>
+            }
+            else
+            {
+                @foreach (var item in lista)
                 {
-                    <span>Empty</span>
+                    Fecha = DateOnly.FromDateTime(item.FechaCreacion);
+                    descripcion = categoriaBLL.Buscar(item.CategoriaId);
+                    if (descripcion == null) break;
+                    <tr>
+                        <td>@item.ArticuloId</td>
+
+                        <td>@item.Nombre</td>
+
+                        <td>@descripcion.Descripcion</td>
+
+                        <td>@item.Cantidad</td>
+
+                        <td>RD$ @item.Costo</td>
+
+                        <td>RD$ @item.Precio</td>
+
+                        <td>@item.ITBIS %</td>
+
+                        <td>@Fecha</td>
+
+                        <td>
+                            <a class="btn btn-sm btn-outline-success oi oi-eye" href="articulo/@item.ArticuloId"></a>
+                        </td>
+                    </tr>
                 }
-                else
-                {
-                    @foreach (var item in lista)
-                    {
-                        Fecha = DateOnly.FromDateTime(item.FechaCreacion);
-                        descripcion = categoriaBLL.Buscar(item.CategoriaId);
-                        if (descripcion == null) break;
-                        <tr>
-                            <td>@item.ArticuloId</td>
-
-                            <td>@item.Nombre</td>
-
-                            <td>@descripcion.Descripcion</td>
-
-                            <td>@item.Cantidad</td>
-
-                            <td>RD$ @item.Costo</td>
-
-                            <td>RD$ @item.Precio</td>
-
-                            <td>@item.ITBIS %</td>
-
-                            <td>@Fecha</td>
-
-                            <td><a class="btn btn-sm btn-outline-success oi oi-eye" href="articulo/@item.ArticuloId"></a>
-                            </td>
-                        </tr>
-                    }
-                }
+            }
             </tbody>
         </table>
     </div>
@@ -147,6 +156,7 @@
 
     [Inject]
     public ArticuloBLL articuloBLL { get; set; }
+
     bool listado = false;
 
 
@@ -155,6 +165,7 @@
         Filtro = "0";
         lista = articuloBLL.GetList(e => true);
     }
+
     private void Consultar()
     {
         lista = new List<Articulo>();
@@ -178,4 +189,5 @@
             lista = articuloBLL.GetList(e => e.FechaCreacion >= fechaDesde && e.FechaCreacion <= fechaHasta);
         }
     }
+
 }

@@ -11,25 +11,27 @@
 @using BLL
 
 <EditForm Model="articulo" OnValidSubmit="Guardar">
-    <DataAnnotationsValidator />
+    <DataAnnotationsValidator/>
 
     <div class="card shadow-lg">
 
         <div class="card">
 
             <div class="card-header">
-                <h3 class="card-title">Registro Articulos <div class="oi oi-beaker"></div>
+                <h3 class="card-title">
+                    Registro Articulos
+                    <i class="oi oi-cart"></i>
                 </h3>
             </div>
 
             <div class="card-body">
                 <div class="row">
-                    
+
                     @*...................... Fecha ......................*@
 
                     <div class="form-group col-3">
                         <label>Fecha</label>
-                        <InputDate @bind-Value="articulo.FechaCreacion" class="form-control" />
+                        <InputDate @bind-Value="articulo.FechaCreacion" class="form-control"/>
                     </div>
 
 
@@ -37,15 +39,17 @@
 
                     <div class="form-group col-3">
                         <label>Nombre</label>
-                        <InputText @bind-Value="articulo.Nombre" placeholder="Nombre articulo"
-                            class="form-control" />
-                        <ValidationMessage For="@(() => articulo.Nombre)" />
+                        <InputText @bind-Value="articulo.Nombre" placeholder="Nombre articulo" class="form-control"/>
+                        <ValidationMessage For="@(() => articulo.Nombre)"/>
                     </div>
 
                     @*...................... Categoria ......................*@
 
-                    <div class="form-group col-4">
-                        <label>Categoria <div class="oi oi-sort-ascending"></div></label>
+                    <div class="form-group col-3">
+                        <label>
+                            Categoria
+                            <div class="oi oi-sort-ascending"></div>
+                        </label>
                         <InputSelect @bind-Value="articulo.CategoriaId" class="form-select text-14">
                             <option value="0" disabled selected>Seleccione una categoria</option>
                             @foreach (var item in CategoriaList)
@@ -53,15 +57,15 @@
                                 <option value="@item.CategoriaId">@item.Descripcion</option>
                             }
                         </InputSelect>
-                        <ValidationMessage For="@(() => articulo.CategoriaId)" />
+                        <ValidationMessage For="@(() => articulo.CategoriaId)"/>
                     </div>
 
                     @*...................... Cantidad ......................*@
 
                     <div class="form-group col-3">
                         <label>Cantidad</label>
-                        <InputNumber @bind-Value="articulo.Cantidad" class="form-control" />
-                        <ValidationMessage For="@(() => articulo.Cantidad)" />
+                        <InputNumber @bind-Value="articulo.Cantidad" class="form-control"/>
+                        <ValidationMessage For="@(() => articulo.Cantidad)"/>
                     </div>
                 </div>
                 <br>
@@ -70,16 +74,16 @@
 
                     <div class="form-group col-3">
                         <label>Costo / Unidad</label>
-                        <InputNumber @bind-Value="articulo.Costo" class="form-control" />
-                        <ValidationMessage For="@(() => articulo.Costo)" />
+                        <InputNumber @bind-Value="articulo.Costo" class="form-control"/>
+                        <ValidationMessage For="@(() => articulo.Costo)"/>
                     </div>
 
                     @*...................... Precio ......................*@
 
                     <div class="form-group col-3">
                         <label>Precio</label>
-                        <InputNumber @bind-Value="articulo.Precio" class="form-control" />
-                        <ValidationMessage For="@(() => articulo.Precio)" />
+                        <InputNumber @bind-Value="articulo.Precio" class="form-control"/>
+                        <ValidationMessage For="@(() => articulo.Precio)"/>
                     </div>
 
                     @*...................... ITBIS ......................*@
@@ -91,19 +95,18 @@
                             <option value="0">0%</option>
                             <option value="18">18%</option>
                         </InputSelect>
-                        <ValidationMessage For="@(() => articulo.ITBIS)" />
+                        <ValidationMessage For="@(() => articulo.ITBIS)"/>
                     </div>
 
                     @*...................... Consultar Articulo ......................*@
 
-                    <p />
-                    <p />
+                    <p/>
+                    <p/>
                     <div class="form-group col-md-3" style="margin: auto;">
                         <a class="rz-border-radius-4 shadow border border-4 btn btn-lg btn btn-warning"
-                            data-toggle="tooltip" data-placement="right" title="Ingresar al inventario"
-                            href="inventario">Articulos
-                            <span class="oi oi-beaker">
-                            </span>
+                           data-toggle="tooltip" data-placement="right" title="Ingresar al inventario"
+                           href="inventario"> Articulos
+                            <i class="oi oi-cart"></i>
                         </a>
                     </div>
                 </div>
@@ -114,15 +117,16 @@
                 <div class="card-footer">
                     <div class="form-group text-center" display: inline-block>
 
-                        <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
+                        <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo" title="Nuevo articulo">
                             <span class="oi oi-file"> Nuevo</span>
                         </button>
 
-                        <button type="submit" class="btn btn-lg btn-success">
+                        <button type="submit" class="btn btn-lg btn-success" title="Guardar articulo">
                             <span class="oi oi-document"> Guardar</span>
                         </button>
 
-                        <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                        <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar"
+                                title="Eliminar articulo">
                             <span class="oi oi-trash"> Eliminar</span>
                         </button>
                     </div>
@@ -182,13 +186,11 @@
         {
             if (articuloBLL.Guardar(articulo))
             {
-
                 Toast.ShowSuccess($"Articulo: {articulo.Nombre}, Guardado correctamente");
                 articulo = new Articulo();
             }
             else
                 Toast.ShowError("No fue posible guardar");
-
         }
         else // si existe
         {
@@ -196,8 +198,6 @@
             {
                 if (articuloBLL.Guardar(articulo))
                 {
-
-
                     Toast.ShowSuccess($"Articulo: {articulo.Nombre}, Guardado correctamente");
                     articulo = new Articulo();
                 }
@@ -213,7 +213,6 @@
 
     public void Buscar() // Buscar articulo
     {
-
         if (this.articulo.ArticuloId > 0)
         {
             var Articulo = articuloBLL.Buscar(articulo.ArticuloId);
@@ -223,7 +222,6 @@
                 articulo = Articulo;
 
                 Toast.ShowSuccess($"Articulo: {articulo.Nombre}, encontrado ");
-
             }
             else
             {
@@ -246,7 +244,6 @@
         }
         else
             Toast.ShowError("No fue posible eliminar");
-
     }
-}
+    }
 

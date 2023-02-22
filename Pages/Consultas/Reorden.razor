@@ -1,70 +1,76 @@
 @page "/reorden"
 
 @*--------- Reorden Articulos ---------*@
+
 @using Models;
 @using ProyectoFinal.BLL;
 
 <EditForm Model="lista">
 
     <a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-warning" data-toggle="tooltip"
-        data-placement="right" title="Regresar al inventario" href="inventario"> <i
-            class="oi oi-arrow-circle-left" /></a>
-    <br />
-    <p />
+       data-placement="right" title="Regresar al inventario" href="inventario">
+        <i
+            class="oi oi-arrow-circle-left"/>
+    </a>
+    <br/>
+    <p/>
 
     <div class="card shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
 
-        <p />
+        <p/>
         <div class="card-header rz-border-radius-4 shadow text-center">
-            <h4>Reorden Articulos
-                <div class="oi oi-beaker"></div>
+            <h4>
+                Reorden Articulos <i class="oi oi-cart"></i>
             </h4>
         </div>
 
-        <p />
+        <p/>
         <hr>
         <p/>
         <table class="shadow 4 rz-border-radius-4 table table-light table-striped table-bordered">
             <thead class="thead">
-                <tr class="text-center table bg-success">
-                    <th>Código</th>
+            <tr class="text-center table bg-inventariocolor">
+                <th class="border border-3">Código</th>
 
-                    <th>Nombre</th>
+                <th class="border border-3">Nombre</th>
 
-                    <th>Categoria</th>
+                <th class="border border-3">Categoria</th>
 
-                    <th>Cantidad</th>
+                <th class="border border-3">Cantidad</th>
 
-                    <th>Ver</th>
-                </tr>
+                <th class="border border-3">Reorden</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var item in lista)
+            @foreach (var item in lista)
+            {
+                @if (item.Cantidad <= 50)
                 {
-                    @if (item.Cantidad <= 50)
-                    {
-                        descripcion = categoriaBLL.Buscar(item.CategoriaId);
-                        @if (descripcion == null) break;
-                        <tr class="text-center">
-                            <td class="border border-3">@item.ArticuloId</td>
+                    descripcion = categoriaBLL.Buscar(item.CategoriaId);
+                    @if (descripcion == null) break;
+                    <tr class="text-center">
+                        <td class="border border-3">@item.ArticuloId</td>
 
-                            <td class="border border-3">@item.Nombre</td>
+                        <td class="border border-3">@item.Nombre</td>
 
-                            <td class="border border-3">@descripcion.Descripcion</td>
+                        <td class="border border-3">@descripcion.Descripcion</td>
 
-                            <td class="border border-3">@item.Cantidad</td>
+                        <td class="border border-3">@item.Cantidad</td>
 
-                            <td class="border border-3"><a class="btn btn-sm btn-outline-success oi oi-eye"
-                                    href="articulo/@item.ArticuloId"></a>
-                            </td>
-                        </tr>
-                    }
+                        <td class="border border-3">
+                            <a class="btn btn-sm btn-outline-success oi oi-cart" data-toggle="tooltip"
+                               data-placement="right" title="Realizar compra"
+                               href="articulo/@item.ArticuloId">
+                            </a>
+                        </td>
+                    </tr>
                 }
+            }
             </tbody>
         </table>
         <hr>
     </div>
-    <p />
+    <p/>
 </EditForm>
 
 @code {
@@ -88,4 +94,5 @@
     {
         lista = articuloBLL.GetList(e => true);
     }
+
 }

@@ -19,8 +19,9 @@ namespace Models
             
         public int ArticuloId { get; set; }
 
-        public int PagoId { get; set; }   
-        
+        public int PagoId { get; set; }
+
+        public int SuplidorId { get; set; }
         public double Cantidad { get; set; }
 
         public decimal PrecioArticulo { get; set; }
@@ -43,17 +44,19 @@ namespace Models
             VentaId = 0;
             ClienteId = 0;
             ArticuloId = 0;
+            SuplidorId = 0;
             PagoId = 0;
             Cantidad = 0;    
             PrecioArticulo = 0;  
             Descripcion = string.Empty;  
         }
 
-        public VentasDetalle(int id, int ventaId, int clienteId, int articuloId, int pagoid, int cantidad, decimal precioArticulo, string descripcion)
+        public VentasDetalle(int id, int ventaId, int clienteId, int suplidorId, int articuloId, int pagoid, int cantidad, decimal precioArticulo, string descripcion)
         {
             Id = id;
             VentaId = ventaId;
             ClienteId = clienteId;
+            SuplidorId = suplidorId;
             ArticuloId = articuloId;
             PagoId = pagoid;
             Cantidad = cantidad;
