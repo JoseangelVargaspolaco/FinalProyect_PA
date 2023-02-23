@@ -6,7 +6,7 @@
 @using ProyectoFinal.BLL;
 
 <EditForm Model="lista">
- 
+
     <div class="card shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
 
         <p/>
@@ -94,11 +94,12 @@
                     </svg>
                 </a>
             </div>
+
             @*...................... Ventana de orden de compra ......................*@
 
             <div class="form-group col-md-3" style="margin: auto;">
                 <a class="rz-border-radius-4 shadow border border-4 btn btn-lg btn btn-primary" data-toggle="tooltip"
-                   data-placement="right" title="Realizar orden de compra" href="ordencompras">
+                   data-placement="right" title="Realizar orden de compra" href="newarticulo">
                     Orden de
                     compra
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
@@ -115,7 +116,10 @@
 @code {
 
 #nullable disable // Para quitar el aviso de nulls
+
     public DateOnly Fecha { get; set; }
+
+    public DateTime _Fecha { get; set; } = DateTime.Now;
 
     public List<Articulo> lista { get; set; } = new List<Articulo>();
 

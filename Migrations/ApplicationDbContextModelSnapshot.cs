@@ -171,6 +171,9 @@ namespace ProyectoFinal.Migrations
                     b.Property<float>("ITBIS")
                         .HasColumnType("REAL");
 
+                    b.Property<int>("NewArticuloId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -491,6 +494,9 @@ namespace ProyectoFinal.Migrations
 
                     b.Property<decimal>("Importe")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("NewArticuloId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PagoId")
                         .HasColumnType("INTEGER");

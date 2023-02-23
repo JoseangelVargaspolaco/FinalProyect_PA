@@ -22,6 +22,7 @@ namespace Models
         public int PagoId { get; set; }
 
         public int SuplidorId { get; set; }
+        
         public double Cantidad { get; set; }
 
         public decimal PrecioArticulo { get; set; }
@@ -33,7 +34,7 @@ namespace Models
         public virtual Articulo articulo {get; set;}
 
         public Ventas venta { get; set; } = new Ventas();
-        
+
 
         //-------------------------------------------------------------------------------------
 

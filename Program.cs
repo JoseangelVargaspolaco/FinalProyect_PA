@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorStrap;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +51,7 @@ builder.Services.AddTransient<PagoBLL>();
 
 
 builder.Services.AddRazorPages();
+builder.Services.AddBlazorStrap();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<Usuarios>>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

@@ -71,7 +71,6 @@
         <table class="table table-light table-striped table-bordered">
             <thead class="thead">
             <tr class="table">
-
                 <th>Código</th>
 
                 <th>Nombre</th>
@@ -89,7 +88,6 @@
                 <th>Fecha Registro</th>
 
                 <th>Ver</th>
-
             </tr>
             </thead>
             <tbody>
@@ -102,7 +100,6 @@
             {
                 @foreach (var item in lista)
                 {
-                    Fecha = DateOnly.FromDateTime(item.FechaCreacion);
                     descripcion = categoriaBLL.Buscar(item.CategoriaId);
                     if (descripcion == null) break;
                     <tr>

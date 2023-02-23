@@ -1,107 +1,319 @@
-@page "/ordencompras"
+@page "/newarticulo"
 
-@*--------- Orden de compras Articulos ---------*@
+@page "/newarticulo/{ArticuloId:int}"
 
-@using Models;
-@using ProyectoFinal.BLL;
+@* Registro de nuevos articulos *@
 
-<EditForm Model="lista">
+@inject AuthenticationStateProvider Authentication
 
-    <a type="button" class="rz-border-radius-4 shadow border border-4 btn-lg btn btn-warning" data-toggle="tooltip"
-       data-placement="right" title="Regresar al inventario" href="inventario">
-        <i class="oi oi-arrow-circle-left"/>
-    </a>
-    <br/>
-    <p/>
+@inject IToastService Toast
 
-    <div class="card shadow border border-4 rz-border-radius-4 card-footer d-flex justify-content-center">
+@using BLL
+@using BlazorStrap.Shared.Components.Modal
 
-        <p/>
-        <div class="card-header rz-border-radius-4 shadow text-center">
-            <h4>
-                Orden de compras
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001 6.971 2.789Zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
-                </svg>
-            </h4>
-        </div>
-        <p/>
-        <hr>
-        <table class="shadow 4 rz-border-radius-4 table table-light table-striped table-bordered">
-            <thead class="thead">
-            <tr class="text-center table bg-inventariocolor">
-                <th class="border border-3">Descripción Articulo</th>
+<EditForm Model="newarticulo" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator/>
 
-                <th class="border border-3">Categoria</th>
+    <div class="card shadow-lg justify-content-center">
 
-                <th class="border border-3">Cantidad</th>
+        <div class="card">
 
-                <th class="border border-3">Compra</th>
-            </tr>
-            </thead>
-            <tbody>
-            @if (lista.Count == 0)
-            {
+            <div class="card-header justify-content-center">
+                <h3 class="card-title">
+                    Registro Nuevo Articulos
+                    <i class="oi oi-cart"></i>
+                </h3>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    
+                    @*...................... Buscar Id ......................*@
+                    
+                    <div class="form-group col-3" style="margin: auto;">
+                        <label>Aportes ID</label>
+                        <div class="form-r ow align-items-center">
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <InputNumber @bind-Value="newarticulo.ArticuloId" class="form-control"/>
+                                        <div class="input-group-append">
+                                            <button class="bi bi-search btn btn-outline-primary" type="button" @onclick="Buscar">
+                                                <i class="oi oi-magnifying-glass"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*...................... Fecha ......................*@
+
+                    <p/>
+                    <div class="form-group col-3" style="margin: auto;">
+                        <label>Fecha</label>
+                        <InputDate @bind-Value="newarticulo.FechaCreacion" class="form-control"/>
+                    </div>
+
+                    @*...................... Nombre ......................*@
+
+                    <div class="form-group col-3" style="margin: auto;">
+                        <label>Nombre</label>
+                        <InputText @bind-Value="newarticulo.Nombre" placeholder="Nombre articulo" class="form-control"/>
+                        <ValidationMessage For="@(() => newarticulo.Nombre)"/>
+                    </div>
+
+                    @*...................... Categoria ......................*@
+
+                    <div class="form-group col-3" style="margin: auto;">
+                        <label>
+                            Categoria
+                            <div class="oi oi-sort-ascending"></div>
+                        </label>
+                        <InputSelect @bind-Value="newarticulo.CategoriaId" class="form-select text-14">
+                            <option value="0" disabled selected>Seleccione</option>
+                            @foreach (var item in CategoriaList)
+                            {
+                                <option value="@item.CategoriaId">@item.Descripcion</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => newarticulo.CategoriaId)"/>
+                    </div>
+                    <p/>
+
+                    @*...................... Cantidad ......................*@
+
+                    <div class="form-group col-3" style="margin: auto;">
+                        <label>Cantidad</label>
+                        <InputNumber @bind-Value="newarticulo.Cantidad" class="form-control"/>
+                        <ValidationMessage For="@(() => newarticulo.Cantidad)"/>
+                    </div>
+
+                    @*...................... Conto / Unidad ......................*@
+
+                    <div class="form-group col-3" style="margin: auto;">
+                        <label>Costo / Unidad</label>
+                        <InputNumber @bind-Value="newarticulo.Costo" class="form-control"/>
+                        <ValidationMessage For="@(() => newarticulo.Costo)"/>
+                    </div>
+
+                    @*...................... Precio ......................*@
+
+                    <div class="form-group col-3" style="margin: auto;">
+                        <label>Precio</label>
+                        <InputNumber @bind-Value="newarticulo.Precio" class="form-control"/>
+                        <ValidationMessage For="@(() => newarticulo.Precio)"/>
+                    </div>
+
+                    @*...................... ITBIS ......................*@
+                    <p/>
+                    <div class="form-group col-3" style="margin: auto;">
+                        <label>ITBIS</label>
+                        <InputSelect @bind-Value="newarticulo.ITBIS" class="form-select text-14">
+                            <option value="0" disabled selected>Seleccione un %</option>
+                            <option value="0">0%</option>
+                            <option value="18">18%</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => newarticulo.ITBIS)"/>
+                    </div>
+                </div>
+                <br>
+
+                @*...................... Botones ......................*@
+
+                <div class="card-footer">
+                    <div class="form-group text-center" display: inline-block>
+
+                        <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo" title="Nuevo articulo">
+                            <span class="oi oi-file"> Nuevo</span>
+                        </button>
+
+                        <button type="submit" class="btn btn-lg btn-success" title="Guardar articulo">
+                            <span class="oi oi-document"> Guardar</span>
+                        </button>
+
+                        <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar"
+                                title="Eliminar articulo">
+                            <span class="oi oi-trash"> Eliminar</span>
+                        </button>
+                    </div>
+                </div>
+
                 <p/>
-                <span>Empty</span>
-            }
-            else
-            {
-                @foreach (Articulo item in lista)
-                {
-                    if (item.Cantidad <= 50)
-                    {
-                        Fecha = DateOnly.FromDateTime(item.FechaCreacion);
-                        descripcion = categoriaBLL.Buscar(item.CategoriaId);
-                        if (descripcion == null) break;
-                        <tr class="text-center">
+                <div class="row">
+                    <hr/>
+                    <p/>
+                    <table class="table table-light table-striped">
+                        <thead class="thead">
+                        <tr class="table text-center bg-inventariocolor">
+                            <th>Código</th>
 
-                            <td class="border border-3">@item.Nombre</td>
+                            <th>Nombre</th>
 
-                            <td class="border border-3">@descripcion.Descripcion</td>
+                            <th>Categoria</th>
 
-                            <td class="border border-3">@item.Cantidad</td>
+                            <th>Cantidad</th>
 
-                            <td class="border border-3">
-                                <a type="button" class="btn-sm rz-border-radius-4 border border-3 shadow border border-4 btn-lg btn btn-success"
-                                   href="articulo/@item.ArticuloId">
-                                    Compra <i class="oi oi-cart"></i>
-                                </a>
-                            </td>
+                            <th>Costo / Unidad</th>
+
+                            <th>Precio / Venta</th>
+
+                            <th>ITBIS</th>
+
+                            <th>Fecha Registro</th>
                         </tr>
-                    }
-                }
-            }
-            </tbody>
-        </table>
-        <div class="nav-item">
-                <a class="text-center nav-link active" title="Ingresar al registro de articulos" aria-current="page" href="articulo">¿Quieres agregar un nuevo articulo?</a>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in ArticuloList)
+                        {
+                            if (item.FechaCreacion.Day <= Fecha.Day && item.FechaCreacion.Month <= Fecha.Month && item.FechaCreacion.Year <= Fecha.Year || item.Cantidad < 50)
+                            {
+                                Fecha = DateOnly.FromDateTime(item.FechaCreacion);
+                                descripcion = categoriaBLL.Buscar(item.CategoriaId);
+                                if (descripcion == null) break;
+                                <tr class="text-center">
+                                    <td>@item.ArticuloId</td>
+
+                                    <td>@item.Nombre</td>
+
+                                    <td>@descripcion.Descripcion</td>
+
+                                    <td>@item.Cantidad</td>
+
+                                    <td>RD$ @item.Costo</td>
+
+                                    <td>RD$ @item.Precio</td>
+
+                                    <td>@item.ITBIS %</td>
+
+                                    <td>@Fecha</td>
+                                </tr>
+                            }
+                        }
+                        </tbody>
+                    </table>
+                    <p/>
+                    <hr/>
+                </div>
+            </div>
         </div>
     </div>
-    <p/>
 </EditForm>
 
 @code {
 
+    [Parameter]
+    public int ArticuloId { get; set; }
+
 #nullable disable // Para quitar el aviso de nulls
+
+    Articulo newarticulo = new Articulo();
+
     public DateOnly Fecha { get; set; }
-
-    public List<Articulo> lista { get; set; } = new List<Articulo>();
-
-    public Articulo articulo { get; set; } = new Articulo();
 
     public Categoria descripcion { get; set; }
 
-    [Inject]
-    public CategoriaBLL categoriaBLL { get; set; }
 
     [Inject]
-    public ArticuloBLL articuloBLL { get; set; }
+    public CategoriaBLL categoriaBLL { get; set; } // Inyectando BLLS
 
+    [Inject]
+    public ArticuloBLL articuloBLL { get; set; } // Inyectando BLL
+
+    private Articulo selectedArticulo;
+
+    List<Categoria> CategoriaList = new List<Categoria>();
+
+    List<Articulo> ArticuloList = new List<Articulo>();
+
+    //-----------------------------------------------------------------------
 
     protected override void OnInitialized()
     {
-        lista = articuloBLL.GetList(e => true);
+        CategoriaList = categoriaBLL.GetList(c => true);
+        ArticuloList = articuloBLL.GetList(a => true);
+
+        if (ArticuloId > 0)
+        {
+            newarticulo.ArticuloId = ArticuloId;
+        }
     }
 
-}
+    public void Nuevo() // Nuevo articulo
+    {
+        newarticulo = new Articulo();
+        CategoriaList = categoriaBLL.GetList(c => true);
+    }
+
+    private void Buscar()
+    {
+        if (newarticulo.ArticuloId > 0)
+        {
+            var encontrado = articuloBLL.Buscar(newarticulo.ArticuloId);
+            if (encontrado != null)
+            {
+                this.newarticulo = encontrado;
+                Toast.ShowSuccess($"Articulo: {newarticulo.Nombre}, encontrado");
+
+            }else{
+                Toast.ShowWarning($"Articulo: {newarticulo.Nombre}, no encontrado");
+            }
+        }
+    }
+    
+    public void Guardar() // Guardar articulo
+    {
+        if (newarticulo.Precio < newarticulo.Costo)
+        {
+            Toast.ShowWarning("El precio debe ser mayor al costo"); // Validacion
+            return;
+        }
+
+        var articulo2 = articuloBLL.ExisteNombre(newarticulo.Nombre);
+        if (articulo2 == null) //si no existe
+        {
+            if (articuloBLL.Guardar(newarticulo))
+            {
+                Toast.ShowSuccess($"Articulo: {newarticulo.Nombre}, Guardado correctamente");
+                newarticulo = new Articulo();
+            }
+            else
+                Toast.ShowError("No fue posible guardar");
+        }
+        else // si existe
+        {
+            if (articulo2.Nombre.ToLower() == newarticulo.Nombre.ToLower() && articulo2.ArticuloId == newarticulo.ArticuloId)
+            {
+                if (articuloBLL.Guardar(newarticulo))
+                {
+                    Toast.ShowSuccess($"Articulo: {newarticulo.Nombre}, Guardado correctamente");
+                    newarticulo = new Articulo();
+                }
+                else
+                    Toast.ShowError("No fue posible guardar");
+            }
+            else
+            {
+                Toast.ShowError($"Articulo: {newarticulo.Nombre}, ya esta registrado");
+            }
+        }
+    }
+
+    public void Eliminar() // Eliminar articulo
+    {
+        bool Eliminar;
+
+        Eliminar = articuloBLL.Eliminar(newarticulo.ArticuloId);
+
+        if (Eliminar)
+        {
+            newarticulo = new Articulo();
+            CategoriaList = categoriaBLL.GetList(c => true);
+            Toast.ShowSuccess("Eliminado correctamente");
+        }
+        else
+            Toast.ShowError("No fue posible eliminar");
+    }
+    }
+

@@ -51,10 +51,11 @@ namespace Models
 
         [ForeignKey("ArticuloId")]
         public List<VentasDetalle> VentasDetalle { get; set; }
+        
 
         public Articulo()
         {
-            ArticuloId = 0; 
+            ArticuloId = 0;
             UsuarioId = 0; 
             Nombre = string.Empty;
             FechaCreacion = DateTime.Now;

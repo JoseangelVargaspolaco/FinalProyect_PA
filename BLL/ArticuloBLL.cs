@@ -108,7 +108,7 @@ namespace ProyectoFinal.BLL
                 .Where(a => a.ArticuloId == id && a.Estado == true)
                 .SingleOrDefault();
         }
- 
+
         public bool Eliminar(int id)
         {
             bool Eliminado = false;
