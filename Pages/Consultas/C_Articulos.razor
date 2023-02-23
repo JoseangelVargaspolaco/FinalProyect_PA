@@ -33,9 +33,11 @@
                     <div class="form-group col-md-3">
                         <InputSelect class="form-select text-14" @bind-Value="Filtro">
                             <option value="0" disabled selected>Seleccione un filtro</option>
-                            <option value="1">Id</option>
+                            <option value="1">Código</option>
                             <option value="2">Nombre</option>
-
+                            <option value="3">Categoria</option>
+                            <option value="4">Costo / Unidad</option>
+                            <option value="5">Precio / Venta</option>
                         </InputSelect>
                     </div>
                     <div class="Form-group col-md-1"></div>
@@ -144,18 +146,15 @@
 
     public Articulo articulo { get; set; } = new Articulo();
 
-    public Categoria descripcion { get; set; }
-
+    public Categoria descripcion { get; set; } = new Categoria();
 
     [Inject]
     public CategoriaBLL categoriaBLL { get; set; }
-
-
+    
     [Inject]
     public ArticuloBLL articuloBLL { get; set; }
 
     bool listado = false;
-
 
     protected override void OnInitialized()
     {
@@ -168,16 +167,25 @@
         lista = new List<Articulo>();
         articulo = new Articulo();
         lista = articuloBLL.GetList(e => true);
-
+        
         if (Criterio != null)
         {
             switch (Filtro)
             {
-                case "1": //Id
+                case "1": //Código
                     lista = articuloBLL.GetList(e => e.ArticuloId == int.Parse(Criterio));
                     break;
-                case "2":
+                case "2": // Nombre
                     lista = articuloBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()));
+                    break;
+                case "3": // Categoria
+                    lista = articuloBLL.GetList(p => p.Categoria.Descripcion.ToLower().Contains(Criterio.ToLower())); 
+                    break;
+                case "4": // Costo
+                    lista = articuloBLL.GetList(p => p.Costo == int.Parse(Criterio));
+                    break;
+                case "5": // Precio
+                    lista = articuloBLL.GetList(p => p.Precio == int.Parse(Criterio));
                     break;
             }
         }
@@ -186,5 +194,4 @@
             lista = articuloBLL.GetList(e => e.FechaCreacion >= fechaDesde && e.FechaCreacion <= fechaHasta);
         }
     }
-
 }

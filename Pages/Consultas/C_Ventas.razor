@@ -36,7 +36,10 @@
                     <div class="form-group col-md-3">
                         <InputSelect class="form-select text-14" @bind-Value="Filtro">
                             <option value="0" disabled selected>Seleccione un filtro</option>
-                            <option value="1">Id</option>
+                            <option value="1">Unidades</option>
+                            <option value="2">SubTotal</option>
+                            <option value="3">ITBIS</option>
+                            <option value="4">Total</option>
                         </InputSelect>
                     </div>
                     <div class="Form-group col-md-1"></div>
@@ -152,9 +155,17 @@
         {
             switch (Filtro)
             {
-                case "1": // Id
-                    lista = ventaBLL.GetList(e => e.VentaId == int.Parse(Criterio));
-
+                case "1": // Unidades
+                    lista = ventaBLL.GetList(e => e.UnidadesVendidas == int.Parse(Criterio));
+                    break;
+                case "2": // SubTotal
+                    lista = ventaBLL.GetList(e => e.SubTotal == int.Parse(Criterio));
+                    break;
+                case "3": // ITBIS
+                    lista = ventaBLL.GetList(e => e.ITBIS == int.Parse(Criterio));
+                    break;
+                case "4": // Total
+                    lista = ventaBLL.GetList(e => e.Total == int.Parse(Criterio));
                     break;
             }
         }

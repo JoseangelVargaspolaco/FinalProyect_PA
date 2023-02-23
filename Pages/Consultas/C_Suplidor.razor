@@ -31,6 +31,9 @@
                         <InputSelect class="form-select text-14" @bind-Value="Filtro">
                             <option value="0" disabled selected>Seleccione un filtro</option>
                             <option value="1">Nombre</option>
+                            <option value="2">Email</option>
+                            <option value="3">Telefono</option>
+                            <option value="4">Descripción articulo</option>
                         </InputSelect>
                     </div>
                     <div class="Form-group col-md-1"></div>
@@ -162,6 +165,15 @@
                 case "1": // Nombre suplidor
                     suplidorList = suplidorBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()));
                     break;
+                case "2": // Email suplidor
+                    suplidorList = suplidorBLL.GetList(p => p.Email.ToLower().Contains(Criterio.ToLower()));
+                    break;
+                case "3": // Telefono suplidor
+                    suplidorList = suplidorBLL.GetList(p => p.Telefono.ToLower().Contains(Criterio.ToLower()));
+                    break;
+                case "4": // Descripción articulo
+                    suplidorList = suplidorBLL.GetList(p => p.DescripcionArticulo.ToLower().Contains(Criterio.ToLower()));
+                    break;
             }
         }
         else
@@ -169,5 +181,4 @@
             suplidorList = suplidorBLL.GetList(e => e.Fecha >= fechaDesde && e.Fecha <= fechaHasta);
         }
     }
-
 }

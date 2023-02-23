@@ -37,7 +37,9 @@
                             <option value="0" disabled selected>Seleccione un filtro</option>
                             <option value="0">Id</option>
                             <option value="1">Nombre</option>
-
+                            <option value="2">Email</option>
+                             <option value="3">Celular</option>
+                            <option value="4">Telefono</option>
                         </InputSelect>
                     </div>
                     <div class="Form-group col-md-1"></div>
@@ -186,6 +188,15 @@
 
                 case "1": // Nombre
                     lista = clienteBLL.GetList(p => p.Nombre.ToLower().Contains(Criterio.ToLower()));
+                    break;
+                case "2":
+                    lista = clienteBLL.GetList(p => p.Email.ToLower().Contains(Criterio.ToLower()));
+                    break;
+                case "3":
+                    lista = clienteBLL.GetList(p => p.Cedula.ToLower().Contains(Criterio.ToLower()));
+                    break;
+                case "4":
+                    lista = clienteBLL.GetList(p => p.Telefono.ToLower().Contains(Criterio.ToLower()));
                     break;
             }
         }
